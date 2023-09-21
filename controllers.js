@@ -129,7 +129,10 @@ const updateIssue = async (req, res) => {
             });
             return;
         }
-        res.send(issue)
+        res.json({
+            result: 'successfully updated',
+            _id: id
+        });
     } catch (error) {
         res.send(error)
     }

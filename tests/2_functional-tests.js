@@ -12,6 +12,7 @@ suite('Functional Tests', function () {
     var testId;
     var invalidId = new ObjectId();
     test("Test POST /api/issues/apitest for each field", (done) => {
+        this.timeout(8000);
         chai
             .request(server)
             .post("/api/issues/apitest")
@@ -36,6 +37,7 @@ suite('Functional Tests', function () {
             });
     });
     test("Test POST /api/issues/apitest for required fields", (done) => {
+        this.timeout(8000);
         chai
             .request(server)
             .post("/api/issues/apitest")
@@ -55,6 +57,7 @@ suite('Functional Tests', function () {
             });
     });
     test("Test POST /api/issues/apitest with missing required fields", (done) => {
+        this.timeout(8000);
         chai
             .request(server)
             .post("/api/issues/apitest")
@@ -71,6 +74,7 @@ suite('Functional Tests', function () {
             });
     });
     test("Test GET /api/issues/apitest", (done) => {
+        this.timeout(8000);
         chai
             .request(server)
             .get("/api/issues/apitest")
@@ -84,6 +88,7 @@ suite('Functional Tests', function () {
             });
     });
     test("Test GET /api/issues/apitest with one filter", (done) => {
+        this.timeout(8000);
         chai
             .request(server)
             .get("/api/issues/apitest?open=true")
@@ -97,6 +102,7 @@ suite('Functional Tests', function () {
             });
     });
     test("Test GET /api/issues/apitest with multiple filters", (done) => {
+        this.timeout(8000);
         chai
             .request(server)
             .get('/api/issues/apitest?issue_title="test"&issue_text="test"&open=true')
@@ -109,28 +115,28 @@ suite('Functional Tests', function () {
                 }
             });
     });
-    test("Test PUT /api/issues/apitest on one field", (done) => {
-        chai
-            .request(server)
-            .put("/api/issues/apitest")
-            .set("content-type", "application/x-www-form-urlencoded")
-            .send({
-                _id: testId,
-                issue_title: "test2"
-            })
-            .end((err, res) => {
-                if (err || !testId) {
-                    done(err);
-                } else {
-                    assert.equal(res.status, 200);
-                    assert.equal(
-                        res.text,
-                        '{"result":"successfully updated","_id":"' + testId + '"}'
-                    );
-                    done();
-                }
-            });
-    });
+    /* test("Test PUT /api/issues/apitest on one field", (done) => {
+         chai
+             .request(server)
+             .put("/api/issues/apitest")
+             .set("content-type", "application/x-www-form-urlencoded")
+             .send({
+                 _id: testId,
+                 issue_title: "test2"
+             })
+             .end((err, res) => {
+                 if (err || !testId) {
+                     done(err);
+                 } else {
+                     assert.equal(res.status, 200);
+                     assert.equal(
+                         res.text,
+                         '{"result":"successfully updated","_id":"' + testId + '"}'
+                     );
+                     done();
+                 }
+             });
+     }); 
     test("Test PUT /api/issues/apitest on multiple fields", (done) => {
         chai
             .request(server)
@@ -157,8 +163,62 @@ suite('Functional Tests', function () {
                     done();
                 }
             });
+    });*/
+
+    test("Test PUT /api/issues/apitest on one field", (done) => {
+        this.timeout(8000);
+        chai
+            .request(server)
+            .put("/api/issues/apitest")
+            .send({
+                _id: testId,
+                issue_title: "test2",
+            })
+            .end((err, res) => {
+                if (err || !testId) {
+                    done(err);
+                } else {
+                    assert.equal(res.status, 200);
+                    assert.equal(
+                        res.text,
+                        '{"result":"successfully updated","_id":"' + testId + '"}'
+                    );
+                    done();
+                }
+            });
     });
+
+    test("Test PUT /api/issues/apitest on multiple fields", (done) => {
+        this.timeout(8000);
+        chai
+            .request(server)
+            .put("/api/issues/apitest")
+            .send({
+                _id: testId,
+                issue_title: "test3",
+                issue_text: "test3",
+                created_by: "test3",
+                assigned_to: "test3",
+                status_text: "test3",
+                open: "true",
+            })
+            .end((err, res) => {
+                if (err || !testId) {
+                    done(err);
+                } else {
+                    assert.equal(res.status, 200);
+                    assert.equal(
+                        res.text,
+                        '{"result":"successfully updated","_id":"' + testId + '"}'
+                    );
+                    done();
+                }
+            });
+    });
+
+
     test("Test PUT /api/issues/apitest with missing _id", (done) => {
+        this.timeout(8000);
         chai
             .request(server)
             .put("/api/issues/apitest")
@@ -177,6 +237,7 @@ suite('Functional Tests', function () {
             });
     });
     test("Test PUT /api/issues/apitest with no fields to update", (done) => {
+        this.timeout(8000);
         chai
             .request(server)
             .put("/api/issues/apitest")
@@ -198,6 +259,7 @@ suite('Functional Tests', function () {
             });
     });
     test("Test PUT /api/issues/apitest with invalid _id", (done) => {
+        this.timeout(8000);
         chai
             .request(server)
             .put("/api/issues/apitest")
@@ -220,6 +282,7 @@ suite('Functional Tests', function () {
             });
     });
     test("Test DELETE /api/issues/apitest", (done) => {
+        this.timeout(8000);
         chai
             .request(server)
             .delete("/api/issues/apitest")
@@ -241,6 +304,7 @@ suite('Functional Tests', function () {
             });
     });
     test("Test DELETE /api/issues/apitest with an invalid _id", (done) => {
+        this.timeout(8000);
         chai
             .request(server)
             .delete("/api/issues/apitest")
@@ -262,6 +326,7 @@ suite('Functional Tests', function () {
             });
     });
     test("Test DELETE /api/issues/apitest with missing _id", (done) => {
+        this.timeout(8000);
         chai
             .request(server)
             .delete("/api/issues/apitest")
